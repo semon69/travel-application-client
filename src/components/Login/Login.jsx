@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SocialLogin from './SocialLogin';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Login = () => {
-    const navigate = useNavigate()
-    const location = useLocation()
-    const from = location?.state?.from?.pathname || '/'
+    // const navigate = useNavigate()
+    // const location = useLocation()
+    // const from = location?.state?.from?.pathname || '/'
     const [show, setShow] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const {login} = useContext(AuthContext)
 
     const onSubmit = data => {
 
         console.log(data.email, data.password)
-        signIn(data.email, data.password)
+        login(data.email, data.password)
             .then(result => {
                 console.log(result.user);
-                navigate(from, { replace: true })
+                // navigate(from, { replace: true })
             })
             .catch(err => console.log(err))
 
