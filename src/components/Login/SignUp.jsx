@@ -1,37 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const SignUp = () => {
+
     const { register, handleSubmit, reset, formState: { errors }, getValues } = useForm();
-    // const { createUser, profileUpdate } = useContext(AuthContext);
-    const navigate = useNavigate();
+    const { createUser, profileUpdate } = useContext(AuthContext);
+
+    // const navigate = useNavigate();
     const onSubmit = data => {
+        console.log(data);
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
+                console.log(loggedUser);
 
                 profileUpdate(data.name, data.photoURL)
                     .then(() => {
-                        const user = { name: data.name, email: loggedUser.email, image: data.photoURL }
-                        fetch('https://sports-acedemy-server.vercel.app/users', {
-                            method: 'POST',
-                            headers: { 'content-type': 'application/json' },
-                            body: JSON.stringify(user)
-                        })
-                            .then(data => {
-                                console.log(data);
-                                // Swal.fire({
-                                //     position: 'top-end',
-                                //     icon: 'success',
-                                //     title: 'Sign Up Success',
-                                //     showConfirmButton: false,
-                                //     timer: 1500
-                                // })
-                                navigate('/')
-                            })
-                            .then(err => console.log(err))
+                        // const user = { name: data.name, email: loggedUser.email, image: data.photoURL }
+                        // fetch('https://sports-acedemy-server.vercel.app/users', {
+                        //     method: 'POST',
+                        //     headers: { 'content-type': 'application/json' },
+                        //     body: JSON.stringify(user)
+                        // })
+                            // .then(data => {
+                            //     console.log(data);
+                            //     // Swal.fire({
+                            //     //     position: 'top-end',
+                            //     //     icon: 'success',
+                            //     //     title: 'Sign Up Success',
+                            //     //     showConfirmButton: false,
+                            //     //     timer: 1500
+                            //     // })
+                            //     navigate('/')
+                            // })
+                            // .then(err => console.log(err))
                     })
                     .catch(error => console.log(error))
             })
@@ -64,11 +69,10 @@ const SignUp = () => {
                                 required: true,
                                 minLength: 6,
                                 maxLength: 20,
-                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])/
                             })} placeholder="password" className="input input-bordered" />
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                        {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase, one special character.</p>}
+                        
                     </div>
                     <div className="form-control">
                         <label className="label">
