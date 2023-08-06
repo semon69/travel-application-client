@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext) 
+    const handleSignOut = () => {
+        logOut()
+            .then(() => { })
+    }
     return (
         <nav className="flex items-center justify-between flex-wrap bg-blue-500 px-10 py-4">
             <div className="text-white font-bold text-xl">Travel App</div>
@@ -19,7 +23,7 @@ const Navbar = () => {
                                 <Link to="/dashboard" className="text-white hover:text-gray-200 ">
                                     Dashboard
                                 </Link>
-                                <p className="btn">
+                                <p onClick={handleSignOut} className="btn">
                                     Logout
                                 </p>
                                 <img className='w-14 h-14 rounded-full' src={user?.photoURL} alt="" />

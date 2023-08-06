@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 
 const Home = () => {
-    const { age } = useContext(AuthContext)
-    console.log(age);
+    const {  } = useContext(AuthContext)
+
     return (
 
         <div>

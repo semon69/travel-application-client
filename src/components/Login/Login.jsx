@@ -6,7 +6,7 @@ import { FaEye } from 'react-icons/fa';
 import { AuthContext } from '../../provider/AuthProvider';
 
 const Login = () => {
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     // const location = useLocation()
     // const from = location?.state?.from?.pathname || '/'
     const [show, setShow] = useState(false)
@@ -19,7 +19,7 @@ const Login = () => {
         login(data.email, data.password)
             .then(result => {
                 console.log(result.user);
-                // navigate(from, { replace: true })
+                navigate('/')
             })
             .catch(err => console.log(err))
 
