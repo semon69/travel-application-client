@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [image, setImage] = useState('');
 
-    const {user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const owner = user?.email
-    const {communityId} = useParams()
+    const { communityId } = useParams()
 
     const handleCreatePost = async (title, content, image) => {
         // Call your backend API to create a new post within the community
@@ -18,7 +19,7 @@ const CreatePost = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ owner: owner, title, content, communityId, image }), 
+            body: JSON.stringify({ owner: owner, title, content, communityId, image }),
         });
 
         const data = await response.json();
@@ -27,9 +28,15 @@ const CreatePost = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // onCreatePost(title, content);
+   
         handleCreatePost(title, content, image)
-        alert('Post Success')
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Create a post successfully',
+            showConfirmButton: false,
+            timer: 3000
+        })
     };
     return (
         <div>

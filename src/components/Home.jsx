@@ -9,7 +9,7 @@ const Home = () => {
     const [allCommunity, setAllCommunity] = useState([])
     const [posts, setPosts] = useState([])
     console.log(posts[0]?.posts);
-    
+
 
     useEffect(() => {
         fetch('http://localhost:5000/posts')
@@ -52,22 +52,30 @@ const Home = () => {
 
         <div className='space-y-10 max-w-7xl mx-auto my-10'>
             <div className='shadow-xl p-5'>
-                <h2 className='text-center font-bold text-gray-500'>Post of Random Specific Community</h2>
+                <h2 className='text-center text-3xl font-bold text-gray-500'>Post of Random Specific Community</h2>
                 <h1 className='text-center font-bold text-blue-500'>Group Name: {posts[0]?.title}</h1>
                 <ul className='grid grid-cols-3 gap-5 my-4'>
-                    {posts[0]?.posts.map((community) => (
-                        <li className='border p-2' key={community._id}>
-                            <div>
-                                <h3 className='font-bold'>{community.title}</h3>
-                                <img className='py-2' src={community?.image} alt="" />
-                                <p>{community.content}</p>
-                            </div>
-                        </li>
-                    ))}
+                    {posts[0]?.posts ?
+
+                        posts[0]?.posts.map((community) => (
+                            <li className='border p-2' key={community._id}>
+                                <div>
+                                    <h3 className='font-bold'>{community.title}</h3>
+                                    <img className='py-2' src={community?.image} alt="" />
+                                    <p>{community.content}</p>
+                                </div>
+                            </li>
+                        ))
+
+                        :
+                        <>
+                            <p className='font-bold'>There is no post in this Community</p>
+                        </>
+                    }
                 </ul>
             </div>
             <div className='shadow-xl p-5'>
-                <h2 className='text-center font-bold'>Other Communities</h2>
+                <h2 className='text-center font-bold text-3xl'>Other Communities</h2>
                 <ul className='grid grid-cols-3 gap-5 my-5'>
                     {allCommunity.map((community) => (
                         <li className='border p-2 flex justify-between items-center' key={community._id}>
