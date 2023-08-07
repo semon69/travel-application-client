@@ -5,41 +5,43 @@ import SocialLogin from './SocialLogin';
 import { AuthContext } from '../../provider/AuthProvider';
 
 const SignUp = () => {
-
+    const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors }, getValues } = useForm();
-    const { createUser, profileUpdate } = useContext(AuthContext);
+    const { createUser, profileUpdate, logOut } = useContext(AuthContext);
 
     // const navigate = useNavigate();
     const onSubmit = data => {
-        console.log(data);
+        reset()
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-
                 profileUpdate(data.name, data.photoURL)
                     .then(() => {
-                        // const user = { name: data.name, email: loggedUser.email, image: data.photoURL }
-                        // fetch('https://sports-acedemy-server.vercel.app/users', {
-                        //     method: 'POST',
-                        //     headers: { 'content-type': 'application/json' },
-                        //     body: JSON.stringify(user)
-                        // })
-                            // .then(data => {
-                            //     console.log(data);
-                            //     // Swal.fire({
-                            //     //     position: 'top-end',
-                            //     //     icon: 'success',
-                            //     //     title: 'Sign Up Success',
-                            //     //     showConfirmButton: false,
-                            //     //     timer: 1500
-                            //     // })
-                            //     navigate('/')
-                            // })
-                            // .then(err => console.log(err))
+                        const user = { name: data.name, email: loggedUser.email, image: data.photoURL }
+                        fetch('http://localhost:5000/users', {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(user)
+                        })
+                            .then(data => {
+                                // console.log(data);
+                                // Swal.fire({
+                                //     position: 'top-end',
+                                //     icon: 'success',
+                                //     title: 'Sign Up Success',
+                                //     showConfirmButton: false,
+                                //     timer: 1500
+                                // })
+                                logOut()
+                                    .then(() => { })
+                                navigate('/login')
+                            })
+                            .then(err => console.log(err))
                     })
                     .catch(error => console.log(error))
             })
+            .then(err => console.log(err))
     }
     return (
         <div className='max-w-5xl mx-auto my-9'>
@@ -72,7 +74,7 @@ const SignUp = () => {
                             })} placeholder="password" className="input input-bordered" />
                         {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
                         {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                        
+
                     </div>
                     <div className="form-control">
                         <label className="label">
