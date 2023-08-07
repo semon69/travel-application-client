@@ -12,20 +12,21 @@ const Home = () => {
     const [posts, setPosts] = useState([])
     console.log(posts[0]?.posts);
 
-
+    // get all posts
     useEffect(() => {
         fetch('https://travel-application-server.vercel.app/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [])
 
+    // get all communities
     useEffect(() => {
-
         fetch('https://travel-application-server.vercel.app/communities')
             .then(res => res.json())
             .then(data => setAllCommunity(data))
     }, [])
 
+    // implement join in a community using community id. Send user or owner email to fixed api in backend. Without login no one can join in a community.
     const handleJoin = (communityId) => {
         if (user) {
             fetch(`https://travel-application-server.vercel.app/communities/${communityId}`, {

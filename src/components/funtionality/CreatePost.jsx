@@ -23,7 +23,6 @@ const CreatePost = () => {
         });
 
         const data = await response.json();
-        setCommunityPosts([...communityPosts, data]); // Update the list of community posts
     };
 
     const handleSubmit = (e) => {

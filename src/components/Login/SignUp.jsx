@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import SocialLogin from './SocialLogin';
 import { AuthContext } from '../../provider/AuthProvider';
 import Swal from 'sweetalert2';
 
@@ -131,7 +130,6 @@ const SignUp = () => {
                         <input className="btn bg-gradient-to-r from-red-600 to-indigo-700 text-white" type="submit" value="Sign Up" />
                     </div>
                 </form>
-                <SocialLogin></SocialLogin>
                 <p className='mt-4 text-center pb-4'><small>Already have an account <Link className='underline' to="/login">Login</Link></small></p>
             </div>
         </div>

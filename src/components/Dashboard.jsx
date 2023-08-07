@@ -8,8 +8,8 @@ const Dashboard = () => {
     const { user } = useContext(AuthContext)
     const owner = user?.email
     const [myCommunity, setMyCommunity] = useState([])
-    console.log(myCommunity);
-    const [otherCommunities, setOtherCommunities] = useState([]);
+
+    // handle create community function and send as prop in CreateCommunity component
     const handleCreateCommunity = async (name, description) => {
         // Call your backend API to create a new community
         const response = await fetch('https://travel-application-server.vercel.app/communities', {
@@ -21,10 +21,9 @@ const Dashboard = () => {
         });
 
         const data = await response.json();
-        // Update the list of other communities
-        setOtherCommunities([...otherCommunities, data]);
     };
 
+    // fetch communities data based on user or owner available in dashboard
     useEffect(() => {
         fetch(`https://travel-application-server.vercel.app/communities?owner=${owner}`)
             .then(res => res.json())

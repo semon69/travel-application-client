@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom';
 const ManageMyCommunity = () => {
     const {communityId} = useParams()
     const [member, setMembers] = useState([])
+
+    // collect all members data using fetch from a single community 
     useEffect(() => {
         fetch(`https://travel-application-server.vercel.app/communities/${communityId}`)
         .then(res => res.json())
