@@ -60,7 +60,7 @@ const Dashboard = () => {
                                 <p>{community.description}</p>
                             </div>
                             <div>
-                                <button className='btn'><Link to={`/communities/:${community._id}`}>Post</Link></button>
+                                <button className='btn'><Link to={`/communities/${community._id}`}>Manage This Community</Link></button>
                             </div>
                         </li>
                     ))}

@@ -7,7 +7,7 @@ const CreatePost = () => {
     const [content, setContent] = useState('');
 
     const {user} = useContext(AuthContext)
-    const owner = user.email
+    const owner = user?.email
     const {communityId} = useParams()
 
     const handleCreatePost = async (title, content) => {

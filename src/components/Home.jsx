@@ -3,9 +3,21 @@ import { AuthContext } from '../provider/AuthProvider';
 
 const Home = () => {
     const { user } = useContext(AuthContext)
+    const owner = user?.email
     
     const [allCommunity, setAllCommunity] = useState([])
     const [posts, setPosts] = useState([])
+    console.log(posts);
+    // const [dbUser, setDbUser] = useState([])
+
+    // const userId = dbUser.find(us => us.owner == user?.email) 
+    // console.log(userId);
+
+    // useEffect(()=> {
+    //     fetch('http://localhost:5000/users')
+    //     .then(res => res.json())
+    //     .then(data => setDbUser(data))
+    // }, [])
 
     useEffect(()=> {
         fetch('http://localhost:5000/posts')
@@ -19,10 +31,22 @@ const Home = () => {
             .then(res => res.json())
             .then(data => setAllCommunity(data))
     }, [])
+
+    const handleJoin = (communityId) => {
+        fetch(`http://localhost:5000/communities/${communityId}`,{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({owner}),
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+    }
     
     return (
 
-        <div>
+        <div className='space-y-10'>
             <div>
                 <h2>All Post</h2>
                 <ul className='grid grid-cols-3 gap-5'>
@@ -31,9 +55,6 @@ const Home = () => {
                             <div>
                                 <h3>{community.title}</h3>
                                 <p>{community.content}</p>
-                            </div>
-                            <div>
-                                <p>Join</p>
                             </div>
                         </li>
                     ))}
@@ -49,7 +70,7 @@ const Home = () => {
                                 <p>{community.description}</p>
                             </div>
                             <div>
-                                <p>Join</p>
+                                <button onClick={()=> handleJoin(community._id)} title={community._id} className='btn'>Join</button>
                             </div>
                         </li>
                     ))}
