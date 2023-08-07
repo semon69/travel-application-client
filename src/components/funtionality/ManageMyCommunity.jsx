@@ -7,7 +7,7 @@ const ManageMyCommunity = () => {
     const {communityId} = useParams()
     const [member, setMembers] = useState([])
     useEffect(() => {
-        fetch(`http://localhost:5000/communities/${communityId}`)
+        fetch(`https://travel-application-server.vercel.app/communities/${communityId}`)
         .then(res => res.json())
         .then(data => setMembers(data))
     }, [])

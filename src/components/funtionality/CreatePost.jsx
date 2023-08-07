@@ -14,7 +14,7 @@ const CreatePost = () => {
 
     const handleCreatePost = async (title, content, image) => {
         // Call your backend API to create a new post within the community
-        const response = await fetch(`http://localhost:5000/posts`, {
+        const response = await fetch(`https://travel-application-server.vercel.app/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

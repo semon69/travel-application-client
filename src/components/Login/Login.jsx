@@ -22,7 +22,7 @@ const Login = () => {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
-                    title: 'Sign Up Success. Please Login Now',
+                    title: 'Login Success. Please Login Now',
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -43,7 +43,8 @@ const Login = () => {
     }
 
     return (
-        <div className='w-1/3'>
+        <div className='max-w-4xl mx-auto'>
+            <h1 className='text-center font-bold text-4xl mt-10 mb-6'>Login Now</h1>
             <div className="card shadow-2xl p-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                     <div className="form-control">
@@ -56,17 +57,17 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text font-bold">Password</span>
                         </label>
-                        <div className='flex relative'>
-                            <input {...register("password", { required: true })} type={show ? 'text' : 'password'} name="password" placeholder="password" className="input input-bordered" />
-                            <span onClick={handleShowPassword} className='cursor-pointer absolute right-3 top-3'><FaEye></FaEye></span>
-                        </div>
+
+                        <input {...register("password", { required: true })} type={show ? 'text' : 'password'} name="password" placeholder="password" className="input input-bordered" />
+
+
                     </div>
                     <div className="form-control mt-6">
-                        <input className="btn" type="submit" value="Login" />
+                        <input className="btn bg-gradient-to-r from-red-600 to-indigo-700 text-white" type="submit" value="Login" />
                     </div>
                 </form>
                 <SocialLogin></SocialLogin>
-                <p className='mt-4'><small>New to La Masia? <Link to="/signup">Create an account</Link> </small></p>
+                <p className='mt-4 text-center pb-4'><small>New to La Masia? <Link className='underline' to="/signup">Create an account</Link> </small></p>
             </div>
         </div>
     );

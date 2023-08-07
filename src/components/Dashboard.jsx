@@ -12,7 +12,7 @@ const Dashboard = () => {
     const [otherCommunities, setOtherCommunities] = useState([]);
     const handleCreateCommunity = async (name, description) => {
         // Call your backend API to create a new community
-        const response = await fetch('http://localhost:5000/communities', {
+        const response = await fetch('https://travel-application-server.vercel.app/communities', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const Dashboard = () => {
     };
 
     useEffect(() => {
-        fetch(`http://localhost:5000/communities?owner=${owner}`)
+        fetch(`https://travel-application-server.vercel.app/communities?owner=${owner}`)
             .then(res => res.json())
             .then(data => setMyCommunity(data))
     }, [])

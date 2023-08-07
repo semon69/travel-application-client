@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate()
     const { user } = useContext(AuthContext)
     const owner = user?.email
 
@@ -12,40 +14,52 @@ const Home = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/posts')
+        fetch('https://travel-application-server.vercel.app/posts')
             .then(res => res.json())
             .then(data => setPosts(data))
     }, [])
 
     useEffect(() => {
 
-        fetch('http://localhost:5000/communities')
+        fetch('https://travel-application-server.vercel.app/communities')
             .then(res => res.json())
             .then(data => setAllCommunity(data))
     }, [])
 
     const handleJoin = (communityId) => {
-        fetch(`http://localhost:5000/communities/${communityId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ owner }),
-        })
-            .then(res => res.json())
-            .then(data => {
+        if (user) {
+            fetch(`https://travel-application-server.vercel.app/communities/${communityId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ owner }),
+            })
+                .then(res => res.json())
+                .then(data => {
 
-                if (data.modifiedCount > 0) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Successfully Join in this group',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
+                    if (data.modifiedCount > 0) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Successfully Join in this group',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
                 }
-            }
-            )
+                )
+        }
+        else {
+            Swal.fire({
+                position: 'top',
+                icon: 'error',
+                title: 'Please Login First',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            navigate('/login')
+        }
     }
 
     return (

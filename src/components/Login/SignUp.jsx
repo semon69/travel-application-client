@@ -20,7 +20,7 @@ const SignUp = () => {
                 profileUpdate(data.name, data.photoURL)
                     .then(() => {
                         const user = { name: data.name, email: loggedUser.email, image: data.photoURL }
-                        fetch('http://localhost:5000/users', {
+                        fetch('https://travel-application-server.vercel.app/users', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify(user)
@@ -68,7 +68,8 @@ const SignUp = () => {
     }
     return (
         <div className='max-w-5xl mx-auto my-9'>
-            <div className="card flex-shrink-0 w-1/2 max-w-sm shadow-2xl p-5">
+            <h1 className='text-center font-bold text-4xl mt-10 mb-6'>Sign Up Now</h1>
+            <div className="shadow-xl">
                 <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                     <div className="form-control">
                         <label className="label">
@@ -131,7 +132,7 @@ const SignUp = () => {
                     </div>
                 </form>
                 <SocialLogin></SocialLogin>
-                <p className='mt-4'><small>Already have an account <Link to="/login">Login</Link></small></p>
+                <p className='mt-4 text-center pb-4'><small>Already have an account <Link className='underline' to="/login">Login</Link></small></p>
             </div>
         </div>
     );
