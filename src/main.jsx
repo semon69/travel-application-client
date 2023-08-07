@@ -11,6 +11,7 @@ import Login from './components/Login/Login.jsx';
 import SignUp from './components/Login/SignUp.jsx';
 import AuthProvider from './provider/AuthProvider.jsx';
 import Dashboard from './components/Dashboard.jsx';
+import CreatePost from './components/funtionality/CreatePost.jsx';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/dashboard',
         element: <Dashboard></Dashboard>
+      },
+      {
+        path:'/communities/:communityId',
+        element: <CreatePost></CreatePost>
       }
     ]
   },

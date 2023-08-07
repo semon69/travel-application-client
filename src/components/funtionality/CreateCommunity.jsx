@@ -10,7 +10,7 @@ const CreateCommunity = ({onCreateCommunity}) => {
         e.target.reset()
     };
     return (
-        <div className='w-[800px] shadow-xl mx-52 p-10 space-y-7'>
+        <div className='w-full shadow-xl mx-52 p-10 space-y-7'>
             <h2>Create a New Community</h2>
             <form onSubmit={handleSubmit} className='space-y-4'>
                 <div className='w-full'>
