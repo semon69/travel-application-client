@@ -5,19 +5,20 @@ import { AuthContext } from '../../provider/AuthProvider';
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [image, setImage] = useState('');
 
     const {user} = useContext(AuthContext)
     const owner = user?.email
     const {communityId} = useParams()
 
-    const handleCreatePost = async (title, content) => {
+    const handleCreatePost = async (title, content, image) => {
         // Call your backend API to create a new post within the community
         const response = await fetch(`http://localhost:5000/posts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ owner: owner, title, content, communityId }), 
+            body: JSON.stringify({ owner: owner, title, content, communityId, image }), 
         });
 
         const data = await response.json();
@@ -27,7 +28,7 @@ const CreatePost = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         // onCreatePost(title, content);
-        handleCreatePost(title, content)
+        handleCreatePost(title, content, image)
         alert('Post Success')
     };
     return (
@@ -39,6 +40,11 @@ const CreatePost = () => {
                         <label>Title:</label>
                         <br />
                         <input className="input input-bordered w-full max-w-xs" type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+                    </div>
+                    <div className='w-full'>
+                        <label>Image:</label>
+                        <br />
+                        <input className="input input-bordered w-full max-w-xs" type="text" value={image} onChange={(e) => setImage(e.target.value)} />
                     </div>
                     <div className='w-full'>
                         <label>Content:</label>

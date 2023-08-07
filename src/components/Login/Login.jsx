@@ -4,6 +4,7 @@ import SocialLogin from './SocialLogin';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -11,17 +12,30 @@ const Login = () => {
     // const from = location?.state?.from?.pathname || '/'
     const [show, setShow] = useState(false)
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const {login} = useContext(AuthContext)
+    const { login } = useContext(AuthContext)
 
     const onSubmit = data => {
 
         console.log(data.email, data.password)
         login(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Sign Up Success. Please Login Now',
+                    showConfirmButton: false,
+                    timer: 3000
+                })
                 navigate('/')
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${err?.message}`,
+                    footer: '<a href="">Why do I have this issue?</a>'
+                })
+            })
 
     };
     const handleShowPassword = () => {

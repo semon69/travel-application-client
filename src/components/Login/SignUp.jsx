@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import SocialLogin from './SocialLogin';
 import { AuthContext } from '../../provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
     const navigate = useNavigate()
@@ -25,23 +26,45 @@ const SignUp = () => {
                             body: JSON.stringify(user)
                         })
                             .then(data => {
-                                // console.log(data);
-                                // Swal.fire({
-                                //     position: 'top-end',
-                                //     icon: 'success',
-                                //     title: 'Sign Up Success',
-                                //     showConfirmButton: false,
-                                //     timer: 1500
-                                // })
+                                console.log(data);
                                 logOut()
                                     .then(() => { })
                                 navigate('/login')
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Sign Up Success. Please Login Now',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                })
+
                             })
-                            .then(err => console.log(err))
+                            .catch(err => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: `${err?.message}`,
+                                    footer: '<a href="">Why do I have this issue?</a>'
+                                })
+                            })
                     })
-                    .catch(error => console.log(error))
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `${error?.message}`,
+                            footer: '<a href="">Why do I have this issue?</a>'
+                        })
+                    })
             })
-            .then(err => console.log(err))
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${err?.message}`,
+                    footer: '<a href="">Why do I have this issue?</a>'
+                })
+            })
     }
     return (
         <div className='max-w-5xl mx-auto my-9'>

@@ -18,7 +18,7 @@ const ManageMembers = ({ member }) => {
                         {
                             member.map(mem =>
                                 <>
-                                    <tr>
+                                    <tr key={mem._id}>
                                         
                                         <td>
                                             <div className="flex items-center space-x-3">
